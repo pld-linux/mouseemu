@@ -8,6 +8,7 @@ Source0:	http://www.geekounet.org/powerbook/files/%{name}.tar.gz
 # Source0-md5:	768efb6ead83c3ad900d56e7f4e24b79
 Source1:	%{name}.init
 Source2:	%{name}.sysconfig
+Patch0:		%{name}-nousb-noadb.patch
 Requires:	chkconfig
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -16,6 +17,7 @@ Emulates middle click and right click.
 
 %prep
 %setup -q -n %{name}
+%patch0 -p1
 
 %build
 %{__cc} %{rpmcflags} %{rpmldflags} -o mouseemu mouseemu.c
