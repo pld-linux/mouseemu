@@ -1,0 +1,56 @@
+#!/bin/sh
+# $Id$
+#
+# mouseemu	Mouse emulation daemon
+#
+# chkconfig:	2345 40 60
+# description:	mouseemu is a daemon which emulates mouse
+#
+# config:	/etc/sysconfig/mouseemu
+
+# Source function library
+. /etc/rc.d/init.d/functions
+
+# Get service config
+if [ -f /etc/sysconfig/mouseemu ]; then
+	. /etc/sysconfig/mouseemu
+fi
+
+RETVAL=0
+# See how we were called.
+case "$1" in
+  start)
+	# Check if service is already running?
+	if [ ! -f /var/lock/subsys/mouseemu ]; then
+		msg_starting "mouseemu"
+		daemon mouseemu $MOUSEEMU_OPT
+		RETVAL=$?
+		[ $RETVAL -eq 0 ] && touch /var/lock/subsys/mouseemu
+	else
+		msg_already_running "mouseemu"
+	fi
+	;;
+  stop)
+	if [ -f /var/lock/subsys/mouseemu ]; then
+		msg_stopping "mouseemu"
+		killproc mouseemu
+		rm -f /var/lock/subsys/mouseemu
+	else
+		msg_not_running mouseemu
+	fi
+	;;
+  status)
+	status mouseemu
+	exit $?
+	;;
+  restart|force-reload)
+	$0 stop
+	$0 start
+	exit $?
+	;;
+  *)
+	msg_usage "$0 {start|stop|restart|force-reload|status}"
+	exit 3
+esac
+
+exit $RETVAL

@@ -1,0 +1,6 @@
+#"-middle 0 68"		#F10 with no modifier
+#"-right 0 125"		#Command with no modifier
+#"-scroll 56"		#Option
+#="-typing-block 300"	#block mouse for 300ms after a keypress
+
+MOUSEEMU_OPT="-typing-block 300"
