@@ -54,5 +54,5 @@ fi
 %defattr(644,root,root,755)
 %doc README
 %attr(755,root,root) %{_sbindir}/*
-%attr(644,root,root) /etc/sysconfig/%{name}
+%attr(644,root,root) %config(noreplace) %verify(not md5 size mtime) /etc/sysconfig/%{name}
 %attr(754,root,root) /etc/rc.d/init.d/%{name}
