@@ -1,4 +1,5 @@
 Summary:	Emulates middle click and right click
+Summary(pl):	Emulacja ¶rodkowego i prawego przycisku myszy
 Name:		mouseemu
 Version:	0.12
 Release:	1
@@ -9,11 +10,15 @@ Source0:	http://www.geekounet.org/powerbook/files/%{name}.tar.gz
 Source1:	%{name}.init
 Source2:	%{name}.sysconfig
 Patch0:		%{name}-nousb-noadb.patch
-Requires:	chkconfig
+PreReq:		rc-scripts
+Requires(post,preun):	chkconfig
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 Emulates middle click and right click.
+
+%description -l pl
+Emulacja ¶rodkowego i prawego przycisku myszy.
 
 %prep
 %setup -q -n %{name}
@@ -24,7 +29,6 @@ Emulates middle click and right click.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-
 install -d $RPM_BUILD_ROOT{%{_sbindir},/etc/{rc.d/init.d,sysconfig}}
 
 install mouseemu $RPM_BUILD_ROOT%{_sbindir}
@@ -54,5 +58,5 @@ fi
 %defattr(644,root,root,755)
 %doc README
 %attr(755,root,root) %{_sbindir}/*
-%attr(644,root,root) %config(noreplace) %verify(not md5 size mtime) /etc/sysconfig/%{name}
+%config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/%{name}
 %attr(754,root,root) /etc/rc.d/init.d/%{name}
