@@ -1,6 +1,8 @@
 #"-middle 0 68"		#F10 with no modifier
 #"-right 0 125"		#Command with no modifier
 #"-scroll 56"		#Option
-#="-typing-block 300"	#block mouse for 300ms after a keypress
+#"-typing-block 300"	#block mouse for 300ms after a keypress
+#"-skip-usb"		#don't block usb devices
+#"-skip-adb"		#don't block adb devices
 
 MOUSEEMU_OPT="-typing-block 300"

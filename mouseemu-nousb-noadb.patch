@@ -1,0 +1,45 @@
+diff -urN mouseemu.org/mouseemu.c mouseemu/mouseemu.c
+--- mouseemu.org/mouseemu.c	2004-04-05 16:23:54.000000000 +0200
++++ mouseemu/mouseemu.c	2005-02-13 21:19:45.000000000 +0100
+@@ -47,6 +47,9 @@
+ static kdev eventdevs[5];
+ static input_handler ihandler[5];
+ 
++static int nousb = 0;
++static int noadb = 0;
++
+ static void send_event(int type, int code, int value)
+ {
+ 	struct input_event event;
+@@ -208,8 +211,14 @@
+ 				}
+ 				m++;
+ 			} else if (test_bit(EV_REL, bit)) {
+-				if (id[ID_PRODUCT] != eventdevs[m].product ||
+-					id[ID_VENDOR]  != eventdevs[m].vendor) {
++			    	int skip = 0;
++			    	ioctl(fd, EVIOCGID, id);
++				if (nousb && (id[ID_BUS] == BUS_USB))
++				    skip = 1;
++				if (noadb && (id[ID_BUS] == BUS_ADB))
++				    skip = 1;
++				if (!skip && (id[ID_PRODUCT] != eventdevs[m].product ||
++					id[ID_VENDOR]  != eventdevs[m].vendor)) {
+ 					if (eventdevs[m].handle >= 0) {
+ 						unregister_inputhandler(eventdevs[m].handle);
+ 						close(eventdevs[m].handle);
+@@ -484,6 +493,14 @@
+ 					nofork=1;
+ 					continue;
+ 				}
++				if (!strcmp(argv[i], "-skip-usb")) {
++				    	nousb=1;
++					continue;
++				}
++				if (!strcmp(argv[i], "-skip-adb")) {
++				    	noadb=1;
++					continue;
++				}
+ 			}
+ 		}
+ 	}
