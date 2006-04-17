@@ -10,6 +10,7 @@ Source0:	http://www.geekounet.org/powerbook/files/%{name}.tar.gz
 Source1:	%{name}.init
 Source2:	%{name}.sysconfig
 Patch0:		%{name}-nousb-noadb.patch
+BuildRequires:	rpmbuild(macros) >= 1.268
 Requires:	rc-scripts
 Requires(post,preun):	chkconfig
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
