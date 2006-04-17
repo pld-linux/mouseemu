@@ -10,7 +10,7 @@ Source0:	http://www.geekounet.org/powerbook/files/%{name}.tar.gz
 Source1:	%{name}.init
 Source2:	%{name}.sysconfig
 Patch0:		%{name}-nousb-noadb.patch
-PreReq:		rc-scripts
+Requires:	rc-scripts
 Requires(post,preun):	chkconfig
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -40,17 +40,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %post
 /sbin/chkconfig --add %{name}
-if [ -f /var/lock/subsys/mouseemu ]; then
-        /etc/rc.d/init.d/%{name} restart >&2
-else
-        echo "Run \"/etc/rc.d/init.d/%{name} start\" to start mouseemu daemon."
-fi
+%service mouseemu restart
 
 %preun
 if [ "$1" = "0" ]; then
-        if [ -f /var/lock/subsys/mouseemu ]; then
-                /etc/rc.d/init.d/%{name} stop >&2
-        fi
+	%service mouseemu stop
         /sbin/chkconfig --del %{name}
 fi
 
