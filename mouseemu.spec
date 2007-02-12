@@ -1,5 +1,5 @@
 Summary:	Emulates middle click and right click
-Summary(pl):	Emulacja ¶rodkowego i prawego przycisku myszy
+Summary(pl.UTF-8):   Emulacja Å›rodkowego i prawego przycisku myszy
 Name:		mouseemu
 Version:	0.12
 Release:	1
@@ -18,8 +18,8 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %description
 Emulates middle click and right click.
 
-%description -l pl
-Emulacja ¶rodkowego i prawego przycisku myszy.
+%description -l pl.UTF-8
+Emulacja Å›rodkowego i prawego przycisku myszy.
 
 %prep
 %setup -q -n %{name}
