@@ -1,5 +1,5 @@
 Summary:	Emulates middle click and right click
-Summary(pl.UTF-8):   Emulacja środkowego i prawego przycisku myszy
+Summary(pl.UTF-8):	Emulacja środkowego i prawego przycisku myszy
 Name:		mouseemu
 Version:	0.12
 Release:	1
